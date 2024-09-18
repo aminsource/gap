@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
 @Service
@@ -40,12 +43,13 @@ class ChatbotService {
                 .call()
                 .chatResponse();
     }
-    String faq(String message){
+    String faq(String message) throws IOException {
+        String suniarFaqText = suniarFaq.getContentAsString(Charset.defaultCharset());
         return chatClient.prompt()
                 .user(u -> {
                     u.text(faqPrompt);
                     u.param("question",message);
-                    u.param("context", suniarFaq);
+                    u.param("context", suniarFaqText);
                 })
                 .call()
                 .content();

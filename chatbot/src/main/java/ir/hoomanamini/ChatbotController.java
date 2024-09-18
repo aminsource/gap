@@ -3,6 +3,8 @@ package ir.hoomanamini;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/v1")
 class ChatbotController {
@@ -22,7 +24,7 @@ class ChatbotController {
         return chatbotService.chatResponse(chatId, input);
     }
     @GetMapping("/suniar/faq")
-    String faq(@RequestParam String message) {
+    String faq(@RequestParam String message) throws IOException {
         return chatbotService.faq(message);
     }
 
