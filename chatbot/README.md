@@ -58,13 +58,13 @@ http --raw "What's my name?" :8090/api/v1/chat/42
 http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred." :8090/api/v1/chat/42
 ```
 
-# With Response
+## With Response
 
 ```shell
 http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
 ```
 
-# SUNIAR FAQ
+## SUNIAR FAQ
 
 ```shell
 http  :8090/api/v1/suniar/faq?message="What sports are being included in the 2024 Summer Olympics?"
