@@ -1,0 +1,4 @@
+rootProject.name = 'gap-ai'
+
+include '00-use-cases:chatbot'
+
