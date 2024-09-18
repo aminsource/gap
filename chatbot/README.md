@@ -9,11 +9,15 @@ The application relies on Ollama for providing LLMs. You can either run Ollama l
 ### Ollama as a native application
 
 First, make sure you have [Ollama](https://ollama.ai) installed on your laptop.
-Then, use Ollama to run the _mistral_ large language model.
-
+Then, use Ollama to run the _llama3_ or _mistral_ large language model.
+```shell
+ollama run llama3.1:8b
+```
+or
 ```shell
 ollama run mistral
 ```
+
 
 Finally, run the Spring Boot application.
 
