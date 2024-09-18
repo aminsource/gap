@@ -21,5 +21,10 @@ class ChatbotController {
     ChatResponse chatResponse(@PathVariable String chatId, @RequestBody String input) {
         return chatbotService.chatResponse(chatId, input);
     }
+    @GetMapping("/suniar/faq")
+    String faq(@RequestParam String message) {
+        return chatbotService.faq(message);
+    }
+
 
 }
