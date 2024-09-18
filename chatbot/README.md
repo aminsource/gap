@@ -35,21 +35,33 @@ You can now call the application that will use Ollama and _mistral_ to answer yo
 This example uses [httpie](https://httpie.io) to send HTTP requests.
 
 ```shell
-http --raw "My name is Bond. James Bond." :8080/chat/42
+http --raw "My name is Hooman Amini." :8090/api/v1/chat/42
 ```
 
 ```shell
-http --raw "What's my name?" :8080/chat/42
+http --raw "What's my name?" :8090/api/v1/chat/42
 ```
 
 ```shell
-http --raw "I was counting on your discretion. Please, do not share my name" :8080/chat/42
+http --raw "I was counting on your discretion. Please, do not share my name" :8090/api/v1/chat/42
 ```
 
 ```shell
-http --raw "What's my name?" :8080/chat/42
+http --raw "What's my name?" :8090/api/v1/chat/42
 ```
 
 ```shell
-http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred." :8080/chat/42
+http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred." :8090/api/v1/chat/42
+```
+
+# With Response
+
+```shell
+http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
+```
+
+# SUNIAR FAQ
+
+```shell
+http  :8090/api/v1/suniar/faq?message="What sports are being included in the 2024 Summer Olympics?"
 ```
