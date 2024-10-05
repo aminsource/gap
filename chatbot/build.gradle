@@ -25,6 +25,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+    implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
     implementation 'io.micrometer:micrometer-tracing:1.1.0'
 
     testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -35,6 +36,7 @@ dependencies {
     testImplementation 'org.springframework.ai:spring-ai-spring-boot-testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:ollama'
+    testImplementation 'org.testcontainers:postgresql'
 }
 
 tasks.named('test') {
