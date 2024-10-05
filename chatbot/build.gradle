@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(22)
+        languageVersion = JavaLanguageVersion.of(23)
     }
 }
 
@@ -25,6 +25,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+    implementation 'io.micrometer:micrometer-tracing:1.1.0'
 
     testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
 

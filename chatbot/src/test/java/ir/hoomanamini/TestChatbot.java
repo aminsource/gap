@@ -15,7 +15,7 @@ public class TestChatbot {
     @RestartScope
     @ServiceConnection
     OllamaContainer ollama() {
-        return new OllamaContainer(DockerImageName.parse("ghcr.io/thomasvitale/ollama-mistral")
+        return new OllamaContainer(DockerImageName.parse("ghcr.io/thomasvitale/ollama-llama3.1")
                 .asCompatibleSubstituteFor("ollama/ollama"));
     }
 
