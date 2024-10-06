@@ -5,7 +5,7 @@ spring:
     ollama:
       chat:
         options:
-          model: mistral
+          model: llama3.1
           num-ctx: 4096
       embedding:
         options:

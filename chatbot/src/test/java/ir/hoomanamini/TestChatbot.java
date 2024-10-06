@@ -20,14 +20,14 @@ public class TestChatbot {
         return new PostgreSQLContainer<>(DockerImageName.parse("pgvector/pgvector:pg16"));
     }
 
-    @Bean
-    @Profile("ollama-image")
-    @RestartScope
-    @ServiceConnection
-    OllamaContainer ollama() {
-        return new OllamaContainer(DockerImageName.parse("ghcr.io/thomasvitale/ollama-mistral")
-                .asCompatibleSubstituteFor("ollama/ollama"));
-    }
+//    @Bean
+//    @Profile("ollama-image")
+//    @RestartScope
+//    @ServiceConnection
+//    OllamaContainer ollama() {
+//        return new OllamaContainer(DockerImageName.parse("ghcr.io/thomasvitale/ollama-mistral")
+//                .asCompatibleSubstituteFor("ollama/ollama"));
+//    }
 
     public static void main(String[] args) {
         SpringApplication.from(Chatbot::main).with(TestChatbot.class).run(args);
