@@ -27,6 +27,10 @@ class ChatbotController {
     String faq(@RequestParam String message) throws IOException {
         return chatbotService.faq(message);
     }
+    @PostMapping("/chat/doc")
+    String chatWithDocument(@RequestBody String input) {
+        return chatbotService.chatWithDocument(input);
+    }
 
 
 }

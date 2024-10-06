@@ -2,8 +2,10 @@ package ir.hoomanamini;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,13 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
 class ChatbotService {
 
     private final ChatClient chatClient;
+    private final VectorStore vectorStore;
     @Value("classpath:/docs/suniar-faq.txt")
     private Resource suniarFaq;
     @Value("classpath:/prompts/faq.st")
     private Resource faqPrompt;
-    ChatbotService(ChatClient.Builder chatClientBuilder, ChatMemory chatMemory) {
+    ChatbotService(ChatClient.Builder chatClientBuilder, ChatMemory chatMemory, VectorStore vectorStore) {
+        this.vectorStore = vectorStore;
         this.chatClient = chatClientBuilder
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
                 .build();
@@ -54,6 +58,13 @@ class ChatbotService {
                 .call()
                 .content();
 
+    }
+    String chatWithDocument(String message) {
+        return chatClient.prompt()
+                .advisors(new QuestionAnswerAdvisor(vectorStore))
+                .user(message)
+                .call()
+                .content();
     }
 
 }

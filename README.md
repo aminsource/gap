@@ -77,3 +77,18 @@ http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
 ```shell
 http  :8090/api/v1/suniar/faq?message="What sports are being included in the 2024 Summer Olympics?"
 ```
+# Question Answering (RAG)
+
+Ask questions about documents with LLMs via Ollama and PGVector.
+will use Ollama with nomic-embed-text and mistral to load text documents 
+as embeddings and generate an answer to your questions based on 
+those documents (RAG pattern).
+
+
+```shell
+http --raw "suniar chie?" :8090/api/v1/chat/doc
+```
+
+```shell
+http --raw "please tell me about suniar" :8090/api/v1/chat/doc
+```
