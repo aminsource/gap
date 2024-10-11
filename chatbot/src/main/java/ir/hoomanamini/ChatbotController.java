@@ -19,6 +19,12 @@ class ChatbotController {
     String chat(@PathVariable String chatId, @RequestBody String input) {
         return chatbotService.chat(chatId, input);
     }
+
+    @PostMapping("/chat/assistance")
+    String chatWithAssistant( @RequestBody String input) {
+        return chatbotService.chatWithAssistance(input);
+    }
+
     @PostMapping("/chat/response/{chatId}")
     ChatResponse chatResponse(@PathVariable String chatId, @RequestBody String input) {
         return chatbotService.chatResponse(chatId, input);

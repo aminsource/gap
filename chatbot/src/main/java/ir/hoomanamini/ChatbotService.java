@@ -39,6 +39,18 @@ class ChatbotService {
                 .call()
                 .content();
     }
+    String chatWithAssistance(String question) {
+        var systemMessage = """
+                You are a helpful and polite chef assistant.
+                Answer in one sentence using a very formal language
+                and starting the answer with a formal greeting.           \s
+                """;
+        return chatClient.prompt()
+                .system(systemMessage)
+                .user(question)
+                .call()
+                .content();
+    }
     ChatResponse chatResponse(String chatId, String message) {
         return chatClient
                 .prompt()

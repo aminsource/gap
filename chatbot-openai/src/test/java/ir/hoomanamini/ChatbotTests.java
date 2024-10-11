@@ -19,7 +19,7 @@ class ChatbotTests {
 
 
     @ParameterizedTest
-    @ValueSource(strings = {"/chat/openai"})
+    @ValueSource(strings = {"/api/v1/openai/chat/"})
     @EnabledIfEnvironmentVariable(named = "SPRING_AI_OPENAI_API_KEY", matches = ".*")
     void chatOpenAI(String path) {
         webTestClient

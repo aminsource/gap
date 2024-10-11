@@ -71,7 +71,11 @@ http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred
 ```shell
 http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
 ```
+## With Assistance
 
+```shell
+http --raw "How I cook Ghorme Sabzi" :8090/api/v1/chat/assitance -b --pretty none
+```
 ## FAQ
 
 ```shell
