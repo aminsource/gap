@@ -1,4 +1,4 @@
-package com.thomasvitale.ai.spring;
+package ir.hoomanamini;
 
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +19,7 @@ class ChatbotTests {
 
 
     @ParameterizedTest
-    @ValueSource(strings = {"/chat/openai", "/model/chat/openai"})
+    @ValueSource(strings = {"/chat/openai"})
     @EnabledIfEnvironmentVariable(named = "SPRING_AI_OPENAI_API_KEY", matches = ".*")
     void chatOpenAI(String path) {
         webTestClient

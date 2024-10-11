@@ -41,7 +41,7 @@ The application relies on the native Testcontainers support in Spring Boot to sp
 ./gradlew bootTestRun
 ```
 
-## chat with llama3
+## Calling the application
 
 You can now call the application that will use Ollama and _llama3_ to answer your questions.
 This example uses [httpie](https://httpie.io) to send HTTP requests.
@@ -70,17 +70,6 @@ http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred
 
 ```shell
 http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
-```
-## Chat with open Ai
-
-You can now call the application that will use open AI and any model to answer your questions.
-
-
-```shell
-http --raw "Who Are you" :8090/api/v1/chat/openai/42
-```
-```shell
-http --raw "Who Are you" :8090/api/v1/chat/openai-options/42 model=="gpt-4o" Temperature=="1.0"
 ```
 
 ## FAQ

@@ -1,44 +1,29 @@
-package com.thomasvitale.ai.spring;
+package ir.hoomanamini;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Chat examples using the high-level ChatClient API.
- */
 @RestController
+@RequestMapping("/api/v1/openai")
 class ChatbotController {
+    private final ChatbotService chatbotService;
 
-    private final ChatClient openAichatClient;
-
-    ChatbotController(OpenAiChatModel openAiChatModel) {
-        this.openAichatClient = ChatClient.builder(openAiChatModel).build();
+    ChatbotController(ChatbotService chatbotService) {
+        this.chatbotService = chatbotService;
     }
 
 
-    @GetMapping("/chat/openai")
-    String chatOpenAi(@RequestParam(defaultValue = "What did Gandalf say to the Balrog?") String question) {
-        return openAichatClient.prompt()
-                .user(question)
-                .call()
-                .content();
+    // chat with open Ai
+    @PostMapping("/chat/{chatId}")
+    String chatOpenAi(@PathVariable String chatId, @RequestBody String question) {
+        return chatbotService.chatOpenAi(question, chatId);
     }
 
-
-    @GetMapping("/chat/openai-options")
-    String chatWithOpenAiOptions(@RequestParam(defaultValue = "What did Gandalf say to the Balrog?") String question) {
-        return openAichatClient.prompt()
-                .user(question)
-                .options(OpenAiChatOptions.builder()
-                        .withModel("gpt-4o-mini")
-                        .withTemperature(1.0)
-                        .build())
-                .call()
-                .content();
+    @PostMapping("/chat/options/{chatId}")
+    String chatWithOpenAiOptions(@PathVariable String chatId,
+                                 @RequestBody String question,
+                                 @RequestParam(defaultValue = "gpt-4o") String model,
+                                 @RequestParam(defaultValue = "1.0") Double Temperature) {
+        return chatbotService.chatWithOpenAiOptions(question, model, Temperature, chatId);
     }
 
 }

@@ -5,7 +5,7 @@ plugins {
     id 'org.graalvm.buildtools.native'
 }
 
-group = 'com.thomasvitale'
+group = 'ir.hoomanamini'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -24,7 +24,7 @@ dependencies {
     implementation platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.ai:spring-ai-mistral-ai-spring-boot-starter'
+
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
 
     testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'

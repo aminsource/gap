@@ -1,10 +1,13 @@
-package com.thomasvitale.ai.spring;
+package ir.hoomanamini;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.stereotype.Service;
+
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
+@Service
 public class ChatbotService {
     private final ChatClient openAichatClient;
 
