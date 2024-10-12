@@ -16,13 +16,13 @@ class ChatbotController {
     @PostMapping("/chat/{chatId}")
     String chat(@PathVariable String chatId,
                 @RequestBody ChatRequest chatRequest) {
-        return chatbotService.chat(chatId, chatRequest.getMessage(), chatRequest.getSystemMessageParams(), chatRequest.isUseDocument());
+        return chatbotService.chat(chatId, chatRequest);
     }
 
     @PostMapping("/chat/response/{chatId}")
     ChatResponse chatResponse(@PathVariable String chatId,
                               @RequestBody ChatRequest chatRequest) {
-        return chatbotService.chatResponse(chatId, chatRequest.getMessage(), chatRequest.getSystemMessageParams(), chatRequest.isUseDocument());
+        return chatbotService.chatResponse(chatId, chatRequest);
     }
 
 

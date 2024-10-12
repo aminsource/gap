@@ -6,11 +6,7 @@ import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
@@ -26,46 +22,52 @@ class ChatbotService {
                 .build();
     }
 
-    String chat(String chatId, String message, Map<String, String> systemMessageParams, boolean useDocument) {
-        String systemMessage = String.format(
-                "You are a %s. Speak in a %s tone.\n%s",
-                systemMessageParams.getOrDefault("role", "assistant"),
-                systemMessageParams.getOrDefault("tone", "neutral"),
-                systemMessageParams.getOrDefault("content", "")
-        );
+    String chat(String chatId, ChatRequest chatRequest) {
+        var systemMessageTemplate = """
+        You are a {role}. Speak in a {tone} tone.
+        {content}
+    """;
 
         var promptBuilder = chatClient.prompt()
-                .system(systemMessage)
-                .user(message)
+                .system(systemSpec -> systemSpec
+                        .text(systemMessageTemplate)
+                        .param("role", chatRequest.systemMessageParams().getOrDefault("role", "assistant"))
+                        .param("tone", chatRequest.systemMessageParams().getOrDefault("tone", "neutral"))
+                        .param("content", chatRequest.systemMessageParams().getOrDefault("content", ""))
+                )
+                .user(chatRequest.message())
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId));
 
-        // If document-based chat is enabled, add QuestionAnswerAdvisor
-        if (useDocument) {
-            promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
+        // Conditionally add the QuestionAnswerAdvisor if useDocument is true
+        if (chatRequest.useDocument()) {
+            promptBuilder = promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
         }
 
         return promptBuilder.call().content();
     }
 
-
-    ChatResponse chatResponse(String chatId, String message, Map<String, String> systemMessageParams, boolean useDocument) {
-        String systemMessage = String.format(
-                "You are a %s. Speak in a %s tone.\n%s",
-                systemMessageParams.getOrDefault("role", "assistant"),
-                systemMessageParams.getOrDefault("tone", "neutral"),
-                systemMessageParams.getOrDefault("content", "")
-        );
+    ChatResponse chatResponse(String chatId, ChatRequest chatRequest) {
+        var systemMessageTemplate = """
+        You are a {role}. Speak in a {tone} tone.
+        {content}
+    """;
 
         var promptBuilder = chatClient.prompt()
-                .system(systemMessage)
-                .user(message)
+                .system(systemSpec -> systemSpec
+                        .text(systemMessageTemplate)
+                        .param("role", chatRequest.systemMessageParams().getOrDefault("role", "assistant"))
+                        .param("tone", chatRequest.systemMessageParams().getOrDefault("tone", "neutral"))
+                        .param("content", chatRequest.systemMessageParams().getOrDefault("content", ""))
+                )
+                .user(chatRequest.message())
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId));
 
-        // If document-based chat is enabled, add QuestionAnswerAdvisor
-        if (useDocument) {
-            promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
+        // Conditionally add the QuestionAnswerAdvisor if useDocument is true
+        if (chatRequest.useDocument()) {
+            promptBuilder = promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
         }
 
         return promptBuilder.call().chatResponse();
     }
+
 }
