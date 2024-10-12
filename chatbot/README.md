@@ -47,52 +47,51 @@ You can now call the application that will use Ollama and _llama3_ to answer you
 This example uses [httpie](https://httpie.io) to send HTTP requests.
 
 ```shell
-http --raw "My name is Hooman Amini." :8090/api/v1/chat/42
-```
+http POST :8090/api/v1/chat/42 message="What is suniar?" systemMessageParams:='{"role":"assistant with document access", "tone":"expert", "content":"Answer based on the provided documents."}' useDocument:=false 
 
-```shell
-http --raw "What's my name?" :8090/api/v1/chat/42
 ```
-
 ```shell
-http --raw "I was counting on your discretion. Please, do not share my name" :8090/api/v1/chat/42
+curl -X POST http://localhost:8090/api/v1/chat/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "What is suniar?",
+  "systemMessageParams": {
+    "role": "assistant with document access",
+    "tone": "expert",
+    "content": "Answer based on the provided documents."
+  },
+  "useDocument": true
+}'
+
 ```
-
 ```shell
-http --raw "What's my name?" :8090/api/v1/chat/42
-```
+curl -X POST http://localhost:8090/api/v1/chat/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "How to cook ghorme sabzi?",
+  "systemMessageParams": {
+    "role": "polite chef assistant",
+    "tone": "formal",
+    "content": "Answer in one sentence."
+  },
+  "useDocument": false
+}'
 
-```shell
-http --raw "Alright, then. Give me the recipe for a martini. Shaken, not stirred." :8090/api/v1/chat/42
 ```
 
 ## With Response
 
 ```shell
-http --raw "My name is Hooman Amini." :8090/api/v1/chat/response/42
-```
-## With Assistance
+curl -X POST http://localhost:8090/api/v1/chat/response/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "How to cook ghorme sabzi?",
+  "systemMessageParams": {
+    "role": "polite chef assistant",
+    "tone": "formal",
+    "content": "Answer in one sentence."
+  },
+  "useDocument": false
+}'
 
-```shell
-http --raw "How I cook Ghorme Sabzi" :8090/api/v1/chat/assitance -b --pretty none
-```
-## FAQ
-
-```shell
-http  :8090/api/v1/suniar/faq?message="What sports are being included in the 2024 Summer Olympics?"
-```
-# Question Answering (RAG)
-
-Ask questions about documents with LLMs via Ollama and PGVector.
-will use Ollama with nomic-embed-text and mistral to load text documents 
-as embeddings and generate an answer to your questions based on 
-those documents (RAG pattern).
-
-
-```shell
-http --raw "suniar chie?" :8090/api/v1/chat/doc
-```
-
-```shell
-http --raw "please tell me about suniar" :8090/api/v1/chat/doc
 ```
