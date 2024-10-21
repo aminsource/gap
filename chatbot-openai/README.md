@@ -29,9 +29,37 @@ You can now call the application that will use open AI and any model to answer y
 
 
 ```shell
-http --raw "Who Are you" :8090/api/v1/openai/chat/42
-```
-```shell
-http --raw "Who Are you" :8090/api/v1/openai/chat/options/42 model=="gpt-4o" Temperature=="1.0"
-```
+http POST :8090/api/v1/openai/chat/42 message="What is suniar?" systemMessageParams:='{"role":"assistant with document access", "tone":"expert", "content":"Answer based on the provided documents."}' useDocument:=false 
 
+```
+### Cooking
+```shell
+curl -X POST http://localhost:8090/api/v1/openai/chat/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "How to cook ghorme sabzi?",
+  "systemMessageParams": {
+    "role": "polite chef assistant",
+    "tone": "formal",
+    "content": "Answer completely and answer in persian"
+  },
+  "useDocument": false
+}'
+
+```
+### Hafez
+
+```shell
+curl -X POST http://localhost:8090/api/v1/openai/chat/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "یک شعر حافظ به همراه معنی آن بگو و تفسیر آن را هم بگو",
+  "systemMessageParams": {
+    "role": "متخصص شعر های حافظ",
+    "tone": "formal",
+    "content": ""
+  },
+  "useDocument": false
+}'
+
+```

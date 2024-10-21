@@ -11,19 +11,14 @@ class ChatbotController {
         this.chatbotService = chatbotService;
     }
 
-
     // chat with open Ai
     @PostMapping("/chat/{chatId}")
-    String chatOpenAi(@PathVariable String chatId, @RequestBody String question) {
-        return chatbotService.chatOpenAi(question, chatId);
+    String chat(@PathVariable String chatId,
+                @RequestBody ChatRequest chatRequest,
+                @RequestParam(defaultValue = "gpt-4o") String model,
+                @RequestParam(defaultValue = "1.0") Double Temperature) {
+        return chatbotService.chat(chatId, chatRequest, model, Temperature);
     }
 
-    @PostMapping("/chat/options/{chatId}")
-    String chatWithOpenAiOptions(@PathVariable String chatId,
-                                 @RequestBody String question,
-                                 @RequestParam(defaultValue = "gpt-4o") String model,
-                                 @RequestParam(defaultValue = "1.0") Double Temperature) {
-        return chatbotService.chatWithOpenAiOptions(question, model, Temperature, chatId);
-    }
 
 }

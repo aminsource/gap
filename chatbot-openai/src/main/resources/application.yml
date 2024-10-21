@@ -6,5 +6,10 @@ spring:
       api-key: ${OPENAI_API_KEY}
       chat:
         options:
-          model: gpt-3.5-turbo
+          model: gpt-4o
           temperature: 0.7
+#    vectorstore:
+#      pgvector:
+#        initialize-schema: true
+#        dimensions: 768
+#        index-type: hnsw
