@@ -21,16 +21,38 @@ repositories {
 }
 
 dependencies {
+    // Spring AI platform dependencies
     implementation platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
 
+    // Spring Boot Web starter for creating REST APIs
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // Spring AI dependencies for integration with OpenAI
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
 
-//    implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
+    // Security dependencies for JWT authentication
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // Spring Data JPA for database interaction
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // PostgreSQL JDBC driver
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // JWT library for token generation and validation
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2' // For JSON serialization/deserialization
+
+    // Validation dependencies compatible with Jakarta
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+    implementation 'org.glassfish:jakarta.el:4.0.2'
+
+    // Optional: Developer tools, auto-restart during development
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Spring Boot testing libraries
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

@@ -36,6 +36,7 @@ http POST :8090/api/v1/openai/chat/42 message="What is suniar?" systemMessagePar
 ```shell
 curl -X POST http://localhost:8090/api/v1/openai/chat/12345 \
 -H "Content-Type: application/json" \
+-H "Authorization: Bearer $TOKEN" \
 -d '{
   "message": "How to cook ghorme sabzi?",
   "systemMessageParams": {
