@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/openai")
+@CrossOrigin(origins = "*")
 class ChatbotController {
     private final ChatbotService chatbotService;
 
@@ -11,7 +12,6 @@ class ChatbotController {
         this.chatbotService = chatbotService;
     }
 
-    // chat with open Ai
     @PostMapping("/chat/{chatId}")
     String chat(@PathVariable String chatId,
                 @RequestBody ChatRequest chatRequest,
@@ -19,6 +19,4 @@ class ChatbotController {
                 @RequestParam(defaultValue = "1.0") Double Temperature) {
         return chatbotService.chat(chatId, chatRequest, model, Temperature);
     }
-
-
 }
