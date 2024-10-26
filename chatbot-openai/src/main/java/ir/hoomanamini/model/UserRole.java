@@ -1,4 +1,4 @@
-package ir.hoomanamini.security;
+package ir.hoomanamini.model;
 
 public enum UserRole {
     USER,

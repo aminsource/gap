@@ -1,5 +1,6 @@
-package ir.hoomanamini.security;
+package ir.hoomanamini.repository;
 
+import ir.hoomanamini.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

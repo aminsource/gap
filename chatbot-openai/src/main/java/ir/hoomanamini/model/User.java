@@ -1,4 +1,4 @@
-package ir.hoomanamini.security;
+package ir.hoomanamini.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

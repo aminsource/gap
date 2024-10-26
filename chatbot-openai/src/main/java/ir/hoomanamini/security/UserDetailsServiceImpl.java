@@ -1,5 +1,7 @@
 package ir.hoomanamini.security;
 
+import ir.hoomanamini.model.User;
+import ir.hoomanamini.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,5 +1,6 @@
-package ir.hoomanamini.security;
+package ir.hoomanamini.config;
 
+import ir.hoomanamini.security.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

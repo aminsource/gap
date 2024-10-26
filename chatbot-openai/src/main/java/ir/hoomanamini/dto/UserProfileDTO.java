@@ -1,4 +1,4 @@
-package ir.hoomanamini.security;
+package ir.hoomanamini.dto;
 
 public class UserProfileDTO {
     private Long id;

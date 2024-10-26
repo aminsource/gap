@@ -1,4 +1,4 @@
-package ir.hoomanamini;
+package ir.hoomanamini.chatbot;
 
 import java.util.Map;
 
