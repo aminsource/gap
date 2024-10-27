@@ -42,7 +42,7 @@ public class AuthController {
         user.setRole(UserRole.USER);  // Enforce "USER" role on registration
         user.setPassword(passwordEncoder.encode(user.getPassword()));  // Hash password
         userRepository.save(user);
-        return "User registered successfully with USER role";
+        return "کاربر ایجاد شد";
     }
 
     // Login endpoint
@@ -60,7 +60,7 @@ public class AuthController {
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return new UserProfileDTO(user.getId(), user.getUsername(), user.getRole().name());  // DTO for profile
+        return new UserProfileDTO(user.getId(), user.getUsername(), user.getRole().name(), user.getFirstName(), user.getLastName());  // DTO for profile
     }
 
     // Admin-only endpoint to assign a role to a user

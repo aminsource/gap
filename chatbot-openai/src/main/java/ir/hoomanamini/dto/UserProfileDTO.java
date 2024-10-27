@@ -5,10 +5,17 @@ public class UserProfileDTO {
     private String username;
     private String role;
 
-    public UserProfileDTO(Long id, String username, String role) {
+    private String firstName;
+
+    private String lastName;
+
+
+    public UserProfileDTO(Long id, String username, String role, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     // Getters only, as this DTO is read-only
@@ -23,4 +30,13 @@ public class UserProfileDTO {
     public String getRole() {
         return role;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
 }
