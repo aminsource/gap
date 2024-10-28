@@ -1,6 +1,7 @@
 package ir.hoomanamini.security;
 
 import ir.hoomanamini.dto.ApiResponse;
+import ir.hoomanamini.dto.AuthResponseDTO;
 import ir.hoomanamini.dto.UserProfileDTO;
 import ir.hoomanamini.model.User;
 import ir.hoomanamini.model.UserRole;
@@ -54,14 +55,26 @@ public class AuthController {
 
     // Login endpoint
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<String>> login(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<AuthResponseDTO>> login(@RequestBody User user) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        String token = jwtUtil.generateToken(userDetails.getUsername());  // Generate JWT token
+        String token = jwtUtil.generateToken(userDetails.getUsername());
+
+        // Fetch the user's profile information
+        User userEntity = userRepository.findByUsername(user.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Return flattened response with token and profile details
+        AuthResponseDTO authResponse = new AuthResponseDTO(
+                token, userEntity.getId(), userEntity.getUsername(),
+                userEntity.getRole().name(), userEntity.getFirstName(), userEntity.getLastName());
+
         return ResponseEntity
-                .ok(ApiResponse.success(token, "ورود با موفقیت انجام شد"));
+                .ok(ApiResponse.success(authResponse, "ورود با موفقیت انجام شد"));
     }
+
 
     // Profile endpoint to get authenticated user details
     @GetMapping("/profile")
