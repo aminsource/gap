@@ -3,21 +3,21 @@ package ir.hoomanamini.dto;
 public class ApiResponse<T> {
     private boolean success;
     private String message;
-    private T data;
+    private T result;
 
-    public ApiResponse(boolean success, String message, T data) {
+    public ApiResponse(boolean success, String message, T result) {
         this.success = success;
         this.message = message;
-        this.data = data;
+        this.result = result;
     }
 
-    public static <T> ApiResponse<T> success(T data, String message) {
-        return new ApiResponse<>(true, message, data);
+    public static <T> ApiResponse<T> success(T result, String message) {
+        return new ApiResponse<>(true, message, result);
     }
 
-    // Overloaded failure method to accept data
-    public static <T> ApiResponse<T> failure(String message, T data) {
-        return new ApiResponse<>(false, message, data);
+    // Overloaded failure method to accept result
+    public static <T> ApiResponse<T> failure(String message, T result) {
+        return new ApiResponse<>(false, message, result);
     }
 
     public static <T> ApiResponse<T> failure(String message) {
@@ -41,11 +41,11 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public T getData() {
-        return data;
+    public T getResult() {
+        return result;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setResult(T result) {
+        this.result = result;
     }
 }
