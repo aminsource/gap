@@ -1,10 +1,13 @@
 package ir.hoomanamini.security;
 
+import ir.hoomanamini.dto.ApiResponse;
 import ir.hoomanamini.dto.UserProfileDTO;
 import ir.hoomanamini.model.User;
 import ir.hoomanamini.model.UserRole;
 import ir.hoomanamini.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +15,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,40 +43,49 @@ public class AuthController {
 
     // Register endpoint with default role as USER
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<String>> register(@RequestBody @Valid User user) {
         user.setRole(UserRole.USER);  // Enforce "USER" role on registration
         user.setPassword(passwordEncoder.encode(user.getPassword()));  // Hash password
         userRepository.save(user);
-        return "کاربر ایجاد شد";
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ApiResponse.success(null, "کاربر با موفقیت ایجاد شد"));
     }
 
     // Login endpoint
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<String>> login(@RequestBody User user) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        return jwtUtil.generateToken(userDetails.getUsername());  // Return JWT token
+        String token = jwtUtil.generateToken(userDetails.getUsername());  // Generate JWT token
+        return ResponseEntity
+                .ok(ApiResponse.success(token, "ورود با موفقیت انجام شد"));
     }
 
     // Profile endpoint to get authenticated user details
     @GetMapping("/profile")
-    public UserProfileDTO getUserProfile(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<ApiResponse<UserProfileDTO>> getUserProfile(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return new UserProfileDTO(user.getId(), user.getUsername(), user.getRole().name(), user.getFirstName(), user.getLastName());  // DTO for profile
+        UserProfileDTO userProfile = new UserProfileDTO(
+                user.getId(), user.getUsername(), user.getRole().name(), user.getFirstName(), user.getLastName());
+
+        return ResponseEntity
+                .ok(ApiResponse.success(userProfile, "پروفایل کاربر با موفقیت دریافت شد"));
     }
 
     // Admin-only endpoint to assign a role to a user
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/assign-role")
-    public String assignRole(@RequestParam String username, @RequestParam UserRole role) {
+    public ResponseEntity<ApiResponse<String>> assignRole(@RequestParam String username, @RequestParam UserRole role) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setRole(role);
         userRepository.save(user);
-        return "Role assigned successfully";
+        return ResponseEntity
+                .ok(ApiResponse.success(null, "نقش با موفقیت اختصاص یافت"));
     }
 }
