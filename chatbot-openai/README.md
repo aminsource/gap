@@ -17,7 +17,23 @@ Then, define an environment variable with the OpenAI API Key associated to your 
 ```shell
 export SPRING_AI_OPENAI_API_KEY=<INSERT KEY HERE>
 ```
+```sql
+-- Drop the table if it exists
+DROP TABLE IF EXISTS vector_store;
 
+-- Enable the pgvector and pgcrypto extensions for vector support and UUID generation
+CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+-- Create the table with the required columns
+CREATE TABLE vector_store (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),  -- UUID as primary key with automatic generation
+    content TEXT,                                   -- Stores textual content
+    metadata JSONB,                                 -- Stores JSON metadata
+    embedding VECTOR(1536)                          -- Vector column with 1536 dimensions
+);
+
+```
 Finally, run the Spring Boot application.
 
 ```shell
@@ -131,5 +147,26 @@ curl -X POST http://localhost:8090/api/v1/openai/chat/12345 \
   "useDocument": false
 }'
 
+
+```
+
+### Suniar
+
+```shell
+http POST :8090/api/v1/chat/42 message="What is suniar?" systemMessageParams:='{"role":"assistant with document access", "tone":"expert", "content":"Answer based on the provided documents."}' useDocument:=false 
+
+```
+```shell
+curl -X POST http://localhost:8090/api/v1/chat/12345 \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "What is suniar?",
+  "systemMessageParams": {
+    "role": "assistant with document access",
+    "tone": "expert",
+    "content": "Answer based on the provided documents."
+  },
+  "useDocument": true
+}'
 
 ```

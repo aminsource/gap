@@ -1,7 +1,9 @@
 package ir.hoomanamini.chatbot;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
@@ -9,10 +11,10 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
 @Service
 public class ChatbotService {
     private final ChatClient chatClient;
-//    private final VectorStore vectorStore;
+    private final VectorStore vectorStore;
 
-    ChatbotService(ChatClient.Builder chatClientBuilder) {
-//        this.vectorStore = vectorStore;
+    ChatbotService(ChatClient.Builder chatClientBuilder,VectorStore vectorStore) {
+        this.vectorStore = vectorStore;
         this.chatClient = chatClientBuilder.build();
     }
 
@@ -35,18 +37,16 @@ public class ChatbotService {
                 .options(OpenAiChatOptions.builder()
                         .withModel(model)
                         .withTemperature(Temperature)
-                        .build())
-                ;
+                        .build());
 
-        // Conditionally add the QuestionAnswerAdvisor if useDocument is true
-//        if (chatRequest.useDocument()) {
-//            promptBuilder = promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
-//        }
+//         Conditionally add the QuestionAnswerAdvisor if useDocument is true
+        if (chatRequest.useDocument()) {
+            promptBuilder = promptBuilder.advisors(new QuestionAnswerAdvisor(vectorStore));
+        }
 
 
         return promptBuilder.call().content();
     }
-
 
 
 }

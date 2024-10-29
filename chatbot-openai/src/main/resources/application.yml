@@ -30,9 +30,8 @@ spring:
       secret: your_secret_key
       expiration: 3600000 # 1 hour in milliseconds
 
-# Uncomment this if you need to use vectorstore settings later
-# vectorstore:
-#   pgvector:
-#     initialize-schema: true
-#     dimensions: 768
-#     index-type: hnsw
+  vectorstore:
+   pgvector:
+     initialize-schema: true
+     dimensions: 768
+     index-type: hnsw

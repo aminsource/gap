@@ -26,6 +26,8 @@ dependencies {
 
     // Spring Boot Web starter for creating REST APIs
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Pgvector extension for postgress database
+    implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
 
     // Spring AI dependencies for integration with OpenAI
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
