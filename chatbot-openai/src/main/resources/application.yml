@@ -11,9 +11,9 @@ spring:
           temperature: 0.7
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/hamgoft
-    username: hamgoft
-    password: hamgoft
+    url: jdbc:postgresql://localhost:5432/gapgoft
+    username: gapgoft
+    password: gapgoft
     driver-class-name: org.postgresql.Driver
 
   jpa:
