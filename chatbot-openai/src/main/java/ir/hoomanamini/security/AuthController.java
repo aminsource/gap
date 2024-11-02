@@ -101,4 +101,8 @@ public class AuthController {
         return ResponseEntity
                 .ok(ApiResponse.success(null, "نقش با موفقیت اختصاص یافت"));
     }
+    @GetMapping("/test")
+    public String testConnection() {
+        return "gapGoft backend! Server is up and running!";
+    }
 }
