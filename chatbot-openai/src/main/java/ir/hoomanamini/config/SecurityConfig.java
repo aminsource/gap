@@ -45,10 +45,28 @@ public class SecurityConfig {
     }
 
     // Define the CORS configuration source
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOriginPattern("*"); // Allows all origins
+        configuration.addAllowedMethod("*");       // Allows all HTTP methods
+        configuration.addAllowedHeader("*");       // Allows all headers
+        configuration.setAllowCredentials(true);   // Allows credentials (optional)
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedOriginPattern("*://gapgoft.ir"); // Matches both HTTP and HTTPS
+//        configuration.setAllowedOrigins(Arrays.asList(
+//                "http://localhost:8095",
+//                "http://gapgoft.ir",
+//                "https://gapgoft.ir" // Include both HTTP and HTTPS versions
+//        ));
 //        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 //        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 //        configuration.setAllowCredentials(true);
