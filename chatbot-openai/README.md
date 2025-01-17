@@ -34,6 +34,12 @@ CREATE TABLE vector_store (
 );
 
 ```
+```shell
+ALTER TABLE vector_store OWNER TO gapgoft;
+ docker build -t gapgoft .
+ docker-compose up
+ 
+```
 Finally, run the Spring Boot application.
 
 ```shell

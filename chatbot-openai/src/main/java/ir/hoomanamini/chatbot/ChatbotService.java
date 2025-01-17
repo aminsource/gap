@@ -35,8 +35,8 @@ public class ChatbotService {
                 .user(chatRequest.message())
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
                 .options(OpenAiChatOptions.builder()
-                        .withModel(model)
-                        .withTemperature(Temperature)
+                        .model(model)
+                        .temperature(Temperature)
                         .build());
 
 //         Conditionally add the QuestionAnswerAdvisor if useDocument is true
