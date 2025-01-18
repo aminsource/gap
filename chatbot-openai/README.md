@@ -4,19 +4,22 @@ Chat with LLMs via Open Ai Models.
 ## Pre-Requisites
 
 * Java 23
-* [OpenAI](https://platform.openai.com) API Key (optional)
+* [OpenAI](https://platform.openai.com) API Key, The application relies on OpenAI API  AI API for providing LLMs.
+  First, make sure you have an [OpenAI account](https://platform.openai.com/signup).
+* PostgreSQL + pgvector
 
 
-## Running the application
 
-The application relies on OpenAI API  AI API for providing LLMs.
-
-First, make sure you have an [OpenAI account](https://platform.openai.com/signup).
-Then, define an environment variable with the OpenAI API Key associated to your OpenAI account as the value.
-
+### Create database and Set postgres values on application.yml
 ```shell
-export SPRING_AI_OPENAI_API_KEY=<INSERT KEY HERE>
+  datasource:
+    url: jdbc:postgresql://localhost:***/***
+    username: ***
+    password: ***
+    
 ```
+#### connect to database and run script
+
 ```sql
 -- Drop the table if it exists
 DROP TABLE IF EXISTS vector_store;
@@ -32,17 +35,37 @@ CREATE TABLE vector_store (
     metadata JSONB,                                 -- Stores JSON metadata
     embedding VECTOR(1536)                          -- Vector column with 1536 dimensions
 );
+ALTER TABLE vector_store OWNER TO {Database USERNAME};
+
+```
+### Running on Docker: 
+### set value on docker-compose.yml
+```shell
+    environment:
+      - OPENAI_API_KEY={OPENAI_API_KEY}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:***/***
+      - SPRING_DATASOURCE_USERNAME=***
+      - SPRING_DATASOURCE_PASSWORD=***
 
 ```
 ```shell
-ALTER TABLE vector_store OWNER TO gapgoft;
- docker build -t gapgoft .
- docker-compose up
+./gradlew build
+cd chatbot
+docker build -t gapgoft .
+cd ..
+docker-compose up
  
+```
+
+### Running the application in local:
+Define an environment variable with the OpenAI API Key associated to your OpenAI account as the value.
+```shell
+export SPRING_AI_OPENAI_API_KEY=<INSERT KEY HERE>
 ```
 Finally, run the Spring Boot application.
 
 ```shell
+
 ./gradlew bootRun
 ```
 ## Chat with application
