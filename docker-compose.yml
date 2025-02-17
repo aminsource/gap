@@ -9,8 +9,8 @@ services:
     environment:
       - OPENAI_API_KEY=******
       - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/xxx
-      - SPRING_DATASOURCE_USERNAME=gapgoft
-      - SPRING_DATASOURCE_PASSWORD=gapgoft
+      - SPRING_DATASOURCE_USERNAME=****
+      - SPRING_DATASOURCE_PASSWORD=****
 #  module2:
 #    image: module2-image
 #    ports:
