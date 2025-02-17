@@ -7,10 +7,10 @@ services:
     network_mode: host
     container_name: gap-goft
     environment:
-      - OPENAI_API_KEY=xxx
+      - OPENAI_API_KEY=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
       - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/xxx
-      - SPRING_DATASOURCE_USERNAME=xxx
-      - SPRING_DATASOURCE_PASSWORD=xxx
+      - SPRING_DATASOURCE_USERNAME=gapgoft
+      - SPRING_DATASOURCE_PASSWORD=gapgoft
 #  module2:
 #    image: module2-image
 #    ports:

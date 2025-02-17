@@ -1,5 +1,6 @@
 rootProject.name = 'gap-ai'
 
-//include 'chatbot'
+include 'chatbot'
 include 'chatbot-openai'
+include 'podicom'
 

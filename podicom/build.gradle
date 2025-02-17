@@ -16,7 +16,6 @@ java {
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
 
 }
@@ -29,8 +28,10 @@ dependencies {
     implementation platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
     implementation "org.springframework.ai:spring-ai-ollama-spring-boot-starter"
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 
 
     testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'

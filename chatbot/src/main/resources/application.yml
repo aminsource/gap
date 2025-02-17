@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8095
 spring:
   ai:
     ollama:
@@ -10,7 +10,14 @@ spring:
       embedding:
         options:
           model: nomic-embed-text
-    vectorstore:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gapgoft
+    username: gapgoft
+    password: gapgoft
+    driver-class-name: org.postgresql.Driver
+
+
+  vectorstore:
       pgvector:
         initialize-schema: true
         dimensions: 768

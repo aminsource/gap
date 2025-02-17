@@ -1,3 +1,6 @@
+server:
+  port: 8095
+
 spring:
   application:
     name: podicom
@@ -5,9 +8,22 @@ spring:
     ollama:
       init:
         pull-model-strategy: when_missing
-        embedding:
-          include: false
       chat:
         options:
           model: llama3.2
           temperature: 0.7
+      embedding:
+        options:
+          model: nomic-embed-text
+    vectorstore:
+            pgvector:
+              initialize-schema: true
+              dimensions: 768
+              index-type: hnsw
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gapgoft
+    username: gapgoft
+    password: gapgoft
+    driver-class-name: org.postgresql.Driver
+
